@@ -21,6 +21,10 @@ npm install
 echo "Starting Tina CMS development server..."
 npm run dev
 
+echo "Stopping nginx to avoid conflicts..."
+sudo systemctl stop nginx
+sudo systemctl disable nginx
+
 echo "Installing socat for external Tina access..."
 sudo apt install -y socat
 
