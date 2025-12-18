@@ -4,7 +4,9 @@
 # Run this in the project directory to update and restart the server
 
 echo "Pulling latest changes from GitHub..."
+git stash push -m "auto stash before upgrade"
 git pull origin master
+git stash pop || echo "No stashed changes to restore"
 git submodule update --init --recursive
 
 echo "Installing/updating npm dependencies..."
