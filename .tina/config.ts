@@ -1,6 +1,6 @@
 export default {
   build: {
-    command: "hugo server --port 1313",
+    command: "hugo server --bind 0.0.0.0 --port 1313 --disableFastRender",
     publicFolder: "static",
     outputFolder: "public",
   },
