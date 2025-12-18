@@ -8,7 +8,7 @@ git pull origin master
 git submodule update --init --recursive
 
 echo "Installing/updating npm dependencies..."
-npm install
+npm install --force
 
 echo "Stopping any running server..."
 pkill -f "npm run dev" || echo "No running server found"
