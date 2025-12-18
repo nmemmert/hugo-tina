@@ -50,4 +50,4 @@ sudo rm -f /etc/nginx/sites-enabled/default
 sudo systemctl reload nginx
 
 echo "Starting Tina CMS development server in background..."
-npm run dev &
+nohup npm run dev > nohup.out 2>&1 &
