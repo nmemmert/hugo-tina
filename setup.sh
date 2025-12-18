@@ -47,8 +47,9 @@ EOF
 
 sudo ln -sf /etc/nginx/sites-available/tina-proxy /etc/nginx/sites-enabled/
 sudo rm -f /etc/nginx/sites-enabled/default
-sudo systemctl start nginx
-sudo systemctl reload nginx
 
 echo "Starting Tina CMS development server in background..."
 nohup npm run dev > nohup.out 2>&1 &
+
+sudo systemctl start nginx
+sudo systemctl reload nginx
