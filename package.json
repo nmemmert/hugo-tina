@@ -2,8 +2,8 @@
   "name": "hugo-site",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tinacms dev --config \".tina/config.ts\" --port 4001",
-    "build": "tinacms build --config \".tina/config.ts\"",
+    "dev": "tinacms dev --port 4001",
+    "build": "tinacms build",
     "start": "hugo server"
   },
   "dependencies": {
