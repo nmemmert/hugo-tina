@@ -4,13 +4,21 @@ A self-hosted Carrd-style homepage with photo feed and microblog using Hugo Them
 
 ## Setup on Ubuntu Linux
 
+### Quick One-Step Install (Recommended)
+Run this single command to clone, install everything, and start the server:
+```
+curl -s https://raw.githubusercontent.com/nmemmert/hugo-tina/main/one-step-install.sh | bash
+```
+This will set up the site in a `hugo-site` directory and start Tina CMS.
+
+### Manual Setup
 1. **Install Dependencies**:
    - Hugo: `sudo snap install hugo`
    - Node.js: `sudo apt install nodejs npm`
 
 2. **Clone and Install**:
-   - `git clone <your-repo-url>`
-   - `cd hugo-site`
+   - `git clone https://github.com/nmemmert/hugo-tina.git`
+   - `cd hugo-tina`
    - `npm install`
 
 3. **Run Locally**:
