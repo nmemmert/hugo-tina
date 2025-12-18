@@ -62,6 +62,7 @@ export default {
         fields: [
           { type: "string", name: "title", label: "Title", isTitle: true, required: true },
           { type: "string", name: "menu", label: "Menu (e.g., main)" },
+          { type: "boolean", name: "draft", label: "Draft" },
           { type: "rich-text", name: "body", label: "Body", isBody: true },
         ],
       },
