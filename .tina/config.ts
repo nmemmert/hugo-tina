@@ -65,7 +65,7 @@ export default {
         ],
       },
       {
-        name: "config",
+        name: "siteConfig",
         label: "Site Config",
         path: "content/config",
         format: "yaml",
