@@ -1,13 +1,17 @@
 #!/bin/bash
 
 # One-step install script for Hugo Tina site
-# Run with: curl -s https://raw.githubusercontent.com/nmemmert/hugo-tina/main/one-step-install.sh | bash
+# Run with: curl -s https://raw.githubusercontent.com/nmemmert/hugo-tina/master/one-step-install.sh | bash
 
 echo "Cloning Hugo Tina repository..."
-git clone https://github.com/nmemmert/hugo-tina.git hugo-site
-
-echo "Entering project directory..."
-cd hugo-site
+if [ -d "hugo-site" ]; then
+    echo "Directory hugo-site exists, pulling latest changes..."
+    cd hugo-site
+    git pull
+else
+    git clone https://github.com/nmemmert/hugo-tina.git hugo-site
+    cd hugo-site
+fi
 
 echo "Making setup script executable..."
 chmod +x setup.sh
