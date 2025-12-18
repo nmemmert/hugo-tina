@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Setup nginx reverse proxy for Tina CMS on Ubuntu
+# Run with sudo: sudo ./setup-nginx.sh
+
+echo "Installing nginx..."
+sudo apt update
+sudo apt install -y nginx
+
+echo "Configuring nginx for Tina proxy on port 4001..."
+sudo tee /etc/nginx/sites-available/tina-proxy <<EOF
+server {
+    listen 4001;
+    server_name _;
+
+    location / {
+        proxy_pass http://127.0.0.1:4001;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+}
+EOF
+
+echo "Enabling the site..."
+sudo ln -sf /etc/nginx/sites-available/tina-proxy /etc/nginx/sites-enabled/
+
+echo "Testing nginx config..."
+sudo nginx -t
+
+if [ $? -eq 0 ]; then
+    echo "Reloading nginx..."
+    sudo systemctl reload nginx
+    echo "Nginx setup complete! Tina should now be accessible at http://<server-ip>:4001/public/index.html"
+else
+    echo "Nginx config test failed. Check /etc/nginx/sites-available/tina-proxy"
+fi
