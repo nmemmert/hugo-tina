@@ -65,6 +65,8 @@ export default {
           { type: "rich-text", name: "body", label: "Body", isBody: true },
         ],
       },
+    ],
+  },
   media: {
     tina: {
       mediaRoot: "static/img",
