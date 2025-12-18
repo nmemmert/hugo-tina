@@ -13,9 +13,12 @@ server {
     listen 4001;
     server_name _;
 
-    client_max_body_size 50M;
-    client_header_buffer_size 1k;
-    large_client_header_buffers 4 4k;
+    client_max_body_size 100M;
+    client_header_buffer_size 8k;
+    large_client_header_buffers 4 16k;
+    proxy_buffer_size 128k;
+    proxy_buffers 4 256k;
+    proxy_busy_buffers_size 256k;
 
     location / {
         proxy_pass http://127.0.0.1:4001;
