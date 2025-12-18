@@ -27,3 +27,23 @@ sudo systemctl disable nginx
 
 echo "Starting Tina CMS development server in background..."
 nohup npm run dev > nohup.out 2>&1 &
+
+echo "Setting up systemd service for auto-start on reboot..."
+sudo tee /etc/systemd/system/hugo-tina.service <<EOF
+[Unit]
+Description=Hugo Tina Dev Servers
+After=network.target
+
+[Service]
+Type=simple
+User=nmemmert
+WorkingDirectory=/home/nmemmert/hugo-site
+ExecStart=/usr/bin/npm run dev
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable hugo-tina
