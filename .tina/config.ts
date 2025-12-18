@@ -1,5 +1,6 @@
 export default {
   build: {
+    command: "hugo server --port 1313",
     publicFolder: "static",
     outputFolder: "public",
   },

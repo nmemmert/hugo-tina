@@ -9,7 +9,11 @@ echo "Installing Hugo..."
 sudo snap install hugo
 
 echo "Installing Node.js and npm..."
-sudo apt install nodejs npm -y
+if ! command -v node &> /dev/null; then
+    sudo apt install nodejs npm -y
+else
+    echo "Node.js is already installed."
+fi
 
 echo "Installing project dependencies..."
 npm install
