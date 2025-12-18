@@ -2,8 +2,8 @@
   "name": "hugo-site",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tina dev --port 4001 -c \"hugo server --port 1313\"",
-    "build": "tina build",
+    "dev": "npx tina dev --port 4001 -c \"hugo server --port 1313\"",
+    "build": "npx tina build",
     "start": "hugo server"
   },
   "dependencies": {
