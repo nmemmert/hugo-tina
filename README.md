@@ -7,7 +7,7 @@ A self-hosted Carrd-style homepage with photo feed and microblog using Hugo Them
 ### Quick One-Step Install (Recommended)
 Run this single command to clone, install everything, and start the server:
 ```
-curl -s https://raw.githubusercontent.com/nmemmert/hugo-tina/main/one-step-install.sh | bash
+curl -s https://raw.githubusercontent.com/nmemmert/hugo-tina/master/one-step-install.sh | bash
 ```
 This will set up the site in a `hugo-site` directory and start Tina CMS.
 
