@@ -1,0 +1,25 @@
+fragment AboutParts on About {
+  __typename
+  title
+  body
+}
+
+fragment NotesParts on Notes {
+  __typename
+  title
+  body
+}
+
+fragment PhotosParts on Photos {
+  __typename
+  title
+  image
+  body
+}
+
+fragment PostsParts on Posts {
+  __typename
+  title
+  date
+  body
+}

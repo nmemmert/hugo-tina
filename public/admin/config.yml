@@ -1,0 +1,54 @@
+backend:
+  name: test-repo
+
+local_backend: true
+
+media_folder: "static/img"
+public_folder: "/img"
+
+collections:
+  - name: "about"
+    label: "About"
+    files:
+      - name: "about"
+        label: "About Page"
+        file: "content/about/_index.md"
+        fields:
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Date", name: "date", widget: "datetime"}
+          - {label: "Type", name: "type", widget: "hidden", default: "page"}
+          - {label: "Layout", name: "layout", widget: "hidden", default: "single"}
+          - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "notes"
+    label: "Notes"
+    folder: "content/notes"
+    create: true
+    delete: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "photos"
+    label: "Photos"
+    folder: "content/photos"
+    create: true
+    delete: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Image", name: "image", widget: "image"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "posts"
+    label: "Posts"
+    folder: "content/posts"
+    create: true
+    delete: true
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Description", name: "description", widget: "string"}
+      - {label: "Tags", name: "tags", widget: "list", default: []}
+      - {label: "Body", name: "body", widget: "markdown"}

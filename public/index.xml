@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Home on My Personal Site</title>
+        <link>http://localhost:1313/</link>
+        <description>Recent content in Home on My Personal Site</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Thu, 18 Dec 2025 12:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>My New Photo</title>
+        <link>http://localhost:1313/photos/my-new-photo/</link>
+        <pubDate>Thu, 18 Dec 2025 12:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/photos/my-new-photo/</guid>
+        <description>&lt;img src="http://localhost:1313/img/sample-photo.jpg" alt="Featured image of post My New Photo" /&gt;&lt;p&gt;This is a description of my new photo.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Another Note</title>
+        <link>http://localhost:1313/notes/another-note/</link>
+        <pubDate>Thu, 18 Dec 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/notes/another-note/</guid>
+        <description>&lt;p&gt;This is another quick note. The weather is nice today!&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Another Photo</title>
+        <link>http://localhost:1313/photos/another-photo/</link>
+        <pubDate>Thu, 18 Dec 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/photos/another-photo/</guid>
+        <description>&lt;img src="http://localhost:1313/img/placeholder.jpg" alt="Featured image of post Another Photo" /&gt;&lt;p&gt;Another beautiful photo. (Placeholder image)&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Another Post</title>
+        <link>http://localhost:1313/posts/another-post/</link>
+        <pubDate>Thu, 18 Dec 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/posts/another-post/</guid>
+        <description>&lt;h1 id=&#34;another-post&#34;&gt;Another Post
+&lt;/h1&gt;&lt;p&gt;This is an additional blog post to fill out the site.&lt;/p&gt;
+&lt;h2 id=&#34;section&#34;&gt;Section
+&lt;/h2&gt;&lt;p&gt;More content here.&lt;/p&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Hello World</title>
+        <link>http://localhost:1313/posts/hello-world/</link>
+        <pubDate>Thu, 18 Dec 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/posts/hello-world/</guid>
+        <description>&lt;p&gt;Welcome to my blog. This is the first post.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Sample Note</title>
+        <link>http://localhost:1313/notes/sample/</link>
+        <pubDate>Thu, 18 Dec 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/notes/sample/</guid>
+        <description>&lt;p&gt;This is a short note, like a microblog post.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Sample Photo</title>
+        <link>http://localhost:1313/photos/sample/</link>
+        <pubDate>Thu, 18 Dec 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/photos/sample/</guid>
+        <description>&lt;img src="http://localhost:1313/img/sample.jpg" alt="Featured image of post Sample Photo" /&gt;&lt;p&gt;A sample photo post. Replace with your own.&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Update on My Personal Site</title>
+        <link>http://localhost:1313/tags/update/</link>
+        <description>Recent content in Update on My Personal Site</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Thu, 18 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/update/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Another Post</title>
+        <link>http://localhost:1313/posts/another-post/</link>
+        <pubDate>Thu, 18 Dec 2025 00:00:00 +0000</pubDate>
+        
+        <guid>http://localhost:1313/posts/another-post/</guid>
+        <description>&lt;h1 id=&#34;another-post&#34;&gt;Another Post
+&lt;/h1&gt;&lt;p&gt;This is an additional blog post to fill out the site.&lt;/p&gt;
+&lt;h2 id=&#34;section&#34;&gt;Section
+&lt;/h2&gt;&lt;p&gt;More content here.&lt;/p&gt;
+&lt;p&gt;Enjoy!&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

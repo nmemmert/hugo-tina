@@ -1,0 +1,39 @@
+baseURL: 'http://example.org/'
+languageCode: 'en-us'
+title: 'My Personal Site'
+theme: 'hugo-theme-stack'
+
+params:
+  sidebar:
+    avatar:
+      src: 'img/avatar.png'
+      enabled: true
+    emoji: '🍥'
+    bio: 'Welcome to my personal hub. Here you can find my photos, notes, and updates.'
+    links:
+      - text: 'GitHub'
+        url: 'https://github.com/nmemmert'
+      - text: 'Twitter'
+        url: 'https://twitter.com/username'
+  article:
+    readingTime: true
+    linkToMarkup: false
+
+menu:
+  main:
+    - identifier: 'home'
+      name: 'Home'
+      url: '/'
+      weight: 1
+    - identifier: 'photos'
+      name: 'Photos'
+      url: '/photos/'
+      weight: 2
+    - identifier: 'notes'
+      name: 'Notes'
+      url: '/notes/'
+      weight: 3
+    - identifier: 'about'
+      name: 'About'
+      url: '/about/'
+      weight: 4
