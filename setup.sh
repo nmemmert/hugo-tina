@@ -6,7 +6,10 @@ echo "Updating system..."
 sudo apt update && sudo apt upgrade -y
 
 echo "Installing Hugo..."
-sudo snap install hugo
+wget https://github.com/gohugoio/hugo/releases/download/v0.152.2/hugo_extended_0.152.2_linux-amd64.tar.gz
+tar -xzf hugo_extended_0.152.2_linux-amd64.tar.gz
+sudo mv hugo /usr/local/bin/
+rm hugo_extended_0.152.2_linux-amd64.tar.gz
 
 echo "Installing Node.js and npm..."
 if ! command -v node &> /dev/null; then
