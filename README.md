@@ -11,6 +11,12 @@ curl -s https://raw.githubusercontent.com/nmemmert/hugo-tina/master/one-step-ins
 ```
 This will set up the site in a `hugo-site` directory and start Tina CMS.
 
+### Quick One-Step Uninstall
+To remove everything (project, dependencies, and running processes):
+```
+curl -s https://raw.githubusercontent.com/nmemmert/hugo-tina/master/uninstall.sh | bash
+```
+
 ### Manual Setup
 1. **Install Dependencies**:
    - Hugo: `sudo snap install hugo`
