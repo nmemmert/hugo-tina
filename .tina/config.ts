@@ -44,8 +44,27 @@ export default {
           { type: "rich-text", name: "body", label: "Body", isBody: true },
         ],
       },
-    ],
-  },
+      {
+        name: "config",
+        label: "Site Config",
+        path: "content/config",
+        format: "yaml",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "title", label: "Site Title" },
+          { type: "string", name: "description", label: "Site Description" },
+          { type: "string", name: "baseURL", label: "Base URL" },
+        ],
+      },
+      {
+        name: "pages",
+        label: "Pages",
+        path: "content/pages",
+        fields: [
+          { type: "string", name: "title", label: "Title", isTitle: true, required: true },
+          { type: "rich-text", name: "body", label: "Body", isBody: true },
+        ],
+      },
   media: {
     tina: {
       mediaRoot: "static/img",

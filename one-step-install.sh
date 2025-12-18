@@ -8,8 +8,9 @@ if [ -d "hugo-site" ]; then
     echo "Directory hugo-site exists, pulling latest changes..."
     cd hugo-site
     git pull
+    git submodule update --init --recursive
 else
-    git clone https://github.com/nmemmert/hugo-tina.git hugo-site
+    git clone --recursive https://github.com/nmemmert/hugo-tina.git hugo-site
     cd hugo-site
 fi
 

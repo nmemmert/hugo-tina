@@ -1,7 +1,7 @@
 baseURL: 'http://example.org/'
 languageCode: 'en-us'
 title: 'My Personal Site'
-theme: 'hugo-theme-stack'
+theme: 'gohugo-theme-ananke'
 
 params:
   sidebar:
