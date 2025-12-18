@@ -13,6 +13,10 @@ server {
     listen 4001;
     server_name _;
 
+    client_max_body_size 50M;
+    client_header_buffer_size 1k;
+    large_client_header_buffers 4 4k;
+
     location / {
         proxy_pass http://127.0.0.1:4001;
         proxy_set_header Host \$host;
