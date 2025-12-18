@@ -14,4 +14,5 @@ sudo apt install nodejs npm -y
 echo "Installing project dependencies..."
 npm install
 
-echo "Setup complete! Run 'npm run dev' to start Tina CMS."
+echo "Starting Tina CMS development server..."
+npm run dev
