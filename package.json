@@ -2,7 +2,7 @@
   "name": "hugo-site",
   "version": "1.0.0",
   "scripts": {
-    "dev": "tinacms dev --port 4001",
+    "dev": "tinacms dev --port 4001 -c \"hugo server --port 1313\"",
     "build": "tinacms build",
     "start": "hugo server"
   },
