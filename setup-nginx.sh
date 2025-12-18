@@ -30,8 +30,9 @@ echo "Testing nginx config..."
 sudo nginx -t
 
 if [ $? -eq 0 ]; then
-    echo "Reloading nginx..."
-    sudo systemctl reload nginx
+    echo "Enabling and starting nginx..."
+    sudo systemctl enable nginx
+    sudo systemctl start nginx
     echo "Nginx setup complete! Tina should now be accessible at http://<server-ip>:4001/public/index.html"
 else
     echo "Nginx config test failed. Check /etc/nginx/sites-available/tina-proxy"
