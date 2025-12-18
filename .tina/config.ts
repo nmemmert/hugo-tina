@@ -67,13 +67,15 @@ export default {
       {
         name: "siteConfig",
         label: "Site Config",
-        path: "content/config",
+        path: "",
+        match: { include: "config*" },
         format: "yaml",
         ui: { allowedActions: { create: false, delete: false } },
         fields: [
           { type: "string", name: "title", label: "Site Title" },
-          { type: "string", name: "description", label: "Site Description" },
           { type: "string", name: "baseURL", label: "Base URL" },
+          { type: "string", name: "description", label: "Site Description" },
+          { type: "string", name: "theme", label: "Theme" },
         ],
       },
     ],
