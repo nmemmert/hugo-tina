@@ -84,4 +84,18 @@ export default {
       publicFolder: "static",
     },
   },
+  global: {
+    fields: [
+      {
+        type: "string",
+        name: "footerText",
+        label: "Footer Text",
+      },
+      {
+        type: "string",
+        name: "socialLinks",
+        label: "Social Links (JSON)",
+      },
+    ],
+  },
 };
