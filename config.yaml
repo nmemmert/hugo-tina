@@ -1,39 +1,44 @@
-baseURL: 'http://example.org/'
-languageCode: 'en-us'
-title: 'My Personal Site'
-theme: 'gohugo-theme-ananke'
-
+  GNU nano 8.4                                                                            config.yaml
+languageCode: en-us
 params:
   sidebar:
     avatar:
-      src: 'img/avatar.png'
+      src: img/avatar.png
       enabled: true
-    emoji: '🍥'
-    bio: 'Welcome to my personal hub. Here you can find my photos, notes, and updates.'
+    emoji: "\U0001F365"
+    bio: >-
+      Welcome to my personal hub. Here you can find my photos, notes, and
+      updates.
     links:
-      - text: 'GitHub'
+      - text: GitHub
         url: 'https://github.com/nmemmert'
-      - text: 'Twitter'
+      - text: Twitter
         url: 'https://twitter.com/username'
   article:
     readingTime: true
     linkToMarkup: false
-
 menu:
   main:
-    - identifier: 'home'
-      name: 'Home'
-      url: '/'
+    - identifier: home
+      name: Home
+      url: /
       weight: 1
-    - identifier: 'photos'
-      name: 'Photos'
-      url: '/photos/'
+    - identifier: photos
+      name: Photos
+      url: /photos/
       weight: 2
-    - identifier: 'notes'
-      name: 'Notes'
-      url: '/notes/'
+    - identifier: notes
+      name: Notes
+      url: /notes/
       weight: 3
-    - identifier: 'about'
-      name: 'About'
-      url: '/about/'
+    - identifier: pages
+      name: Pages
+      url: /pages/
       weight: 4
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 5
+title: necloud
+baseURL: 'https://necloud.us'
+theme: gohugo-theme-ananke
