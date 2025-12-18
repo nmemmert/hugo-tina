@@ -7,11 +7,23 @@ export default {
   schema: {
     collections: [
       {
-        name: "about",
-        label: "About",
-        path: "content/about",
+        name: "home",
+        label: "Home Page",
+        path: "content",
+        match: { include: "_index*" },
+        ui: { allowedActions: { create: false, delete: false } },
         fields: [
           { type: "string", name: "title", label: "Title", isTitle: true, required: true },
+          { type: "rich-text", name: "body", label: "Body", isBody: true },
+        ],
+      },
+      {
+        name: "posts",
+        label: "Posts",
+        path: "content/posts",
+        fields: [
+          { type: "string", name: "title", label: "Title", isTitle: true, required: true },
+          { type: "datetime", name: "date", label: "Date" },
           { type: "rich-text", name: "body", label: "Body", isBody: true },
         ],
       },
@@ -35,12 +47,20 @@ export default {
         ],
       },
       {
-        name: "posts",
-        label: "Posts",
-        path: "content/posts",
+        name: "about",
+        label: "About",
+        path: "content/about",
         fields: [
           { type: "string", name: "title", label: "Title", isTitle: true, required: true },
-          { type: "datetime", name: "date", label: "Date" },
+          { type: "rich-text", name: "body", label: "Body", isBody: true },
+        ],
+      },
+      {
+        name: "pages",
+        label: "Pages",
+        path: "content/pages",
+        fields: [
+          { type: "string", name: "title", label: "Title", isTitle: true, required: true },
           { type: "rich-text", name: "body", label: "Body", isBody: true },
         ],
       },
@@ -54,26 +74,6 @@ export default {
           { type: "string", name: "title", label: "Site Title" },
           { type: "string", name: "description", label: "Site Description" },
           { type: "string", name: "baseURL", label: "Base URL" },
-        ],
-      },
-      {
-        name: "pages",
-        label: "Pages",
-        path: "content/pages",
-        fields: [
-          { type: "string", name: "title", label: "Title", isTitle: true, required: true },
-          { type: "rich-text", name: "body", label: "Body", isBody: true },
-        ],
-      },
-      {
-        name: "home",
-        label: "Home Page",
-        path: "content",
-        match: { include: "_index*" },
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          { type: "string", name: "title", label: "Title", isTitle: true, required: true },
-          { type: "rich-text", name: "body", label: "Body", isBody: true },
         ],
       },
     ],
