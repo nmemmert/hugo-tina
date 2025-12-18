@@ -1,6 +1,6 @@
-baseURL: 'http://example.org/'
+baseURL: 'https://necloud.us/'
 languageCode: 'en-us'
-title: 'My Personal Site'
+title: 'necloud'
 theme: 'gohugo-theme-ananke'
 
 params:
@@ -42,6 +42,3 @@ menu:
       name: About
       url: /about/
       weight: 5
-title: necloud
-baseURL: 'https://necloud.us'
-theme: gohugo-theme-ananke
