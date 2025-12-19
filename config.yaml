@@ -5,6 +5,7 @@ title: necloud
 baseURL: 'https://necloud.us/'
 theme: gohugo-theme-ananke
 params:
+  featured_image_class: "cover bg-center"
   hero:
     background_image: "/img/hero-image.png"
   article:
