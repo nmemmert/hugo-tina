@@ -22,6 +22,15 @@ fi
 # Debug: show parsed inputs
 echo "Installer inputs: REPO_URL=$REPO_URL  BRANCH=$BRANCH  SITE_DIR=$SITE_DIR"
 
+# Auto-correct common swapped-arguments case: REPO_URL='new' BRANCH='/var/www/hugo'
+if [[ ! "$REPO_URL" =~ ^https?:// ]] && [[ "$BRANCH" =~ ^/ ]]; then
+  echo "Detected possible swapped args (REPO_URL looks like branch and BRANCH looks like path). Auto-correcting to use default repo."
+  TMP_BRANCH="$REPO_URL"
+  REPO_URL="$DEFAULT_REPO"
+  BRANCH="$TMP_BRANCH"
+  echo "Fixed inputs: REPO_URL=$REPO_URL  BRANCH=$BRANCH  SITE_DIR=$SITE_DIR"
+fi
+
 # Basic validation to catch mis-invocations
 if [[ ! "$REPO_URL" =~ ^https?:// ]]; then
   cat <<USAGE
