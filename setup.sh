@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Setup script for Hugo site with Tina CMS on Ubuntu Linux
+# Setup script for Hugo site with Decap (Netlify) CMS on Ubuntu Linux
 
 echo "Updating system..."
 sudo apt update && sudo apt upgrade -y
@@ -25,25 +25,18 @@ echo "Stopping nginx to avoid conflicts..."
 sudo systemctl stop nginx
 sudo systemctl disable nginx
 
-echo "Starting Tina CMS development server in background..."
-nohup npm run dev > nohup.out 2>&1 &
+echo "Enabling Hugo systemd service (created by install script)..."
+if systemctl list-unit-files | grep -q '^hugo.service'; then
+  sudo systemctl enable --now hugo || true
+else
+  echo "Note: hugo systemd service not found. Run 'scripts/install-ubuntu.sh' to install Hugo service."
+fi
 
-echo "Setting up systemd service for auto-start on reboot..."
-sudo tee /etc/systemd/system/hugo-tina.service <<EOF
-[Unit]
-Description=Hugo Tina Dev Servers
-After=network.target
-
-[Service]
-Type=simple
-User=nmemmert
-WorkingDirectory=/home/nmemmert/hugo-site
-ExecStart=/usr/bin/npm run dev
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-sudo systemctl daemon-reload
-sudo systemctl enable hugo-tina
+# Remove legacy 'hugo-tina' service if present
+if systemctl list-unit-files | grep -q '^hugo-tina.service'; then
+  echo "Removing legacy hugo-tina service"
+  sudo systemctl stop hugo-tina || true
+  sudo systemctl disable hugo-tina || true
+  sudo rm -f /etc/systemd/system/hugo-tina.service || true
+  sudo systemctl daemon-reload || true
+fi

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# One-step install script for Hugo Tina site
+# One-step install script for Hugo site (Decap CMS)
 # Run with: curl -s https://raw.githubusercontent.com/nmemmert/hugo-tina/master/one-step-install.sh | bash
 
-echo "Cloning Hugo Tina repository..."
+echo "Cloning repository (hugo-tina)..."
 if [ -d "hugo-site" ]; then
     echo "Directory hugo-site exists, pulling latest changes..."
     cd hugo-site

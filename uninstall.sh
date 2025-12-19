@@ -1,20 +1,18 @@
 #!/bin/bash
 
-# One-step uninstall script for Hugo Tina site
+# One-step uninstall script for Hugo + Decap site
 # Run with: curl -s https://raw.githubusercontent.com/nmemmert/hugo-tina/master/uninstall.sh | bash
 
 echo "Stopping any running processes..."
-pkill -f "tinacms" || true
 pkill -f "hugo" || true
 
-echo "Removing project directory..."
-rm -rf hugo-site
+# Note: remove your site directory manually if desired (e.g., /var/www/hugo)
 
-echo "Uninstalling Hugo..."
-sudo snap remove hugo
+echo "Uninstalling Hugo (snap) if present..."
+sudo snap remove hugo || true
 
-echo "Uninstalling Node.js and npm..."
-sudo apt remove --purge nodejs npm -y
-sudo apt autoremove -y
+echo "Uninstalling Node.js and npm (optional)..."
+sudo apt remove --purge nodejs npm -y || true
+sudo apt autoremove -y || true
 
 echo "Uninstall complete!"

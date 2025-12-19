@@ -9,5 +9,3 @@ nohup.out
 .DS_Store
 .vscode/
 .env
-# Tina generated files (optional)
-.tina/__generated__/
