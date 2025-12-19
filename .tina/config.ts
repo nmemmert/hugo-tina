@@ -66,8 +66,6 @@ export default {
           { type: "rich-text", name: "body", label: "Body", isBody: true },
         ],
       },
-    ],
-  },
       {
         name: "siteConfig",
         label: "Site Config",
