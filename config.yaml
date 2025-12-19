@@ -9,6 +9,8 @@ params:
   article:
     readingTime: true
     linkToMarkup: false
+hero_background_image: ""
+footer_copyright: ""
 menu:
   main:
     - identifier: home

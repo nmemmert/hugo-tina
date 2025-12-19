@@ -66,6 +66,21 @@ export default {
           { type: "rich-text", name: "body", label: "Body", isBody: true },
         ],
       },
+      {
+        name: "siteConfig",
+        label: "Site Config",
+        path: "",
+        match: { include: "config.yaml" },
+        format: "yaml",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "title", label: "Site Title" },
+          { type: "string", name: "baseURL", label: "Base URL" },
+          { type: "string", name: "theme", label: "Theme" },
+          { type: "string", name: "hero_background_image", label: "Hero Background Image" },
+          { type: "string", name: "footer_copyright", label: "Footer Copyright" },
+        ],
+      },
     ],
   },
   media: {
