@@ -4,6 +4,8 @@ title: 'necloud'
 theme: 'gohugo-theme-ananke'
 
 params:
+  hero:
+    background_image: ""
   article:
     readingTime: true
     linkToMarkup: false
