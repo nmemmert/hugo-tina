@@ -22,7 +22,12 @@
 {{ with .Params.featured_image }}
   {{/* This is the default case, the image lives in the static directory.
     In which case we'll use the static dir */}}
-  {{ $linkToCover = strings.Trim . "/" | urls.AbsURL }}
+  {{ $val := . }}
+  {{ if strings.HasPrefix $val "http" }}
+    {{ $linkToCover = $val }}
+  {{ else }}
+    {{ $linkToCover = printf "/%s" (strings.Trim $val "/") }}
+  {{ end }}
   {{/* If we find a Page Resource matching the exact value, we use it instead. */}}
   {{ with $.Resources.GetMatch . }}
     {{ $linkToCover = .RelPermalink }}
@@ -31,7 +36,12 @@
 {{ else }}
   {{/* If there's a site-level hero background set (e.g. params.hero.background_image), use that */}}
   {{ with .Site.Params.hero.background_image }}
-    {{ $linkToCover = strings.Trim . "/" | urls.AbsURL }}
+    {{ $val := . }}
+    {{ if strings.HasPrefix $val "http" }}
+      {{ $linkToCover = $val }}
+    {{ else }}
+      {{ $linkToCover = printf "/%s" (strings.Trim $val "/") }}
+    {{ end }}
   {{ else }}
     {{ with .Resources.ByType "image" }}
       {{ with .GetMatch (fmt.Printf "**{%s}*" $matches) }}
