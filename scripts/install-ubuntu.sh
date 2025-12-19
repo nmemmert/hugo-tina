@@ -8,6 +8,21 @@ REPO_URL=${1:-"https://github.com/nmemmert/hugo-tina.git"}
 BRANCH=${2:-"new"}
 SITE_DIR=${3:-"/var/www/hugo"}
 
+# Debug: show parsed inputs
+echo "Installer inputs: REPO_URL=$REPO_URL  BRANCH=$BRANCH  SITE_DIR=$SITE_DIR"
+
+# Basic validation to catch common mis-invocations (e.g., passing branch and path but missing repo URL)
+if [[ ! "$REPO_URL" =~ ^https?:// ]] || [[ "$BRANCH" =~ ^/ ]]; then
+  cat <<USAGE
+Error: Argument parsing looks wrong.
+Usage: sudo ./install-ubuntu.sh <repo-url> <branch> <site-dir>
+Example: sudo ./install-ubuntu.sh https://github.com/nmemmert/hugo-tina.git new /var/www/hugo
+Notes:
+ - If you run with 'sudo' without './' your current dir may not be in PATH; prefer 'sudo ./install-ubuntu.sh ...' or 'sudo bash install-ubuntu.sh ...'
+USAGE
+  exit 1
+fi
+
 echo "==> Install prerequisites"
 apt-get update
 apt-get install -y git curl ca-certificates gnupg lsb-release software-properties-common
