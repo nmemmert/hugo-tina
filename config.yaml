@@ -1,0 +1,35 @@
+languageCode: en-us
+hero_background_image: ''
+footer_copyright: ''
+title: necloud
+baseURL: 'https://necloud.us/'
+theme: gohugo-theme-ananke
+params:
+  featured_image_class: "cover bg-center"
+  hero:
+    background_image: "/img/hero-image.png"
+  article:
+    readingTime: true
+    linkToMarkup: false
+menu:
+  main:
+    - identifier: home
+      name: Home
+      url: /
+      weight: 1
+    - identifier: photos
+      name: Photos
+      url: /photos/
+      weight: 2
+    - identifier: notes
+      name: Notes
+      url: /notes/
+      weight: 3
+    - identifier: pages
+      name: Pages
+      url: /pages/
+      weight: 4
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 5

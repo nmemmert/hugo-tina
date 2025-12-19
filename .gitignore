@@ -1,0 +1,13 @@
+# Ignore node modules and build artifacts
+node_modules/
+public/
+resources/_gen/
+.hugo_build.lock
+static/static/
+*.log
+nohup.out
+.DS_Store
+.vscode/
+.env
+# Tina generated files (optional)
+.tina/__generated__/
