@@ -90,7 +90,7 @@ install_nginx=${install_nginx:-N}
 if [[ "$install_nginx" =~ ^[Yy]$ ]]; then
   echo "==> Installing nginx"
   apt-get install -y nginx
-  cat >/etc/nginx/sites-available/hugo <<NGINX
+  cat >/etc/nginx/sites-available/hugo <<'NGINX'
 server {
     listen 80;
     server_name _;
