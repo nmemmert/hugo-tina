@@ -29,7 +29,7 @@ export default {
       },
       {
         name: "notes",
-        label: "Notes",
+        label: "Blog",
         path: "content/notes",
         fields: [
           { type: "string", name: "title", label: "Title", isTitle: true, required: true },
@@ -78,6 +78,25 @@ export default {
           { type: "string", name: "baseURL", label: "Base URL" },
           { type: "string", name: "description", label: "Site Description" },
           { type: "string", name: "theme", label: "Theme" },
+          {
+            type: "object",
+            name: "menu",
+            label: "Menu",
+            fields: [
+              {
+                type: "object",
+                name: "main",
+                label: "Main Menu",
+                list: true,
+                fields: [
+                  { type: "string", name: "identifier", label: "Identifier" },
+                  { type: "string", name: "name", label: "Name" },
+                  { type: "string", name: "url", label: "URL" },
+                  { type: "number", name: "weight", label: "Weight" },
+                ],
+              },
+            ],
+          },
           {
             type: "object",
             name: "params",
