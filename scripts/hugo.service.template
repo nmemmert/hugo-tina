@@ -1,0 +1,16 @@
+# Template: copy to /etc/systemd/system/hugo.service and replace WORKING_DIR
+[Unit]
+Description=Hugo Server (development)
+After=network.target
+
+[Service]
+Type=simple
+User=hugo
+Group=hugo
+WorkingDirectory=WORKING_DIR
+ExecStart=/usr/bin/hugo server --bind 0.0.0.0 --port 1313 --disableFastRender --noHTTPCache
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
