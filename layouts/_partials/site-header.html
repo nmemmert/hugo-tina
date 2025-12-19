@@ -2,9 +2,10 @@
 {{ if $featured_image }}
   {{/* Try to find a Hugo resource for the featured image (page bundle or assets). If found we'll generate responsive variants. */}}
   {{ $trimmed := strings.TrimPrefix $featured_image "/" }}
-  {{ $imgRes := resources.Get $trimmed }}
+  {{ $basename := replaceRE "^.*/" "" $trimmed }}
+  {{ $imgRes := .Resources.GetMatch (printf "**/%s" $basename) }}
   {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-center" }}
-  {{ if and $imgRes (eq $imgRes.MediaType.Type "image") }}
+  {{ if $imgRes }}
     {{/* Generate three sizes and a srcset */}}
     {{ $large := $imgRes.Fit "1920x800" }}
     {{ $medium := $imgRes.Fit "1200x600" }}
