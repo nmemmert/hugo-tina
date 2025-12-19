@@ -126,7 +126,7 @@ export default {
   },
   media: {
     tina: {
-      mediaRoot: "img",
+      mediaRoot: "static/img",
       publicFolder: "static",
     },
   },
