@@ -126,34 +126,6 @@ export default {
                   },
                 ],
               },
-              {
-                type: "object",
-                name: "sidebar",
-                label: "Sidebar",
-                fields: [
-                  {
-                    type: "object",
-                    name: "avatar",
-                    label: "Avatar",
-                    fields: [
-                      { type: "image", name: "src", label: "Source" },
-                      { type: "boolean", name: "enabled", label: "Enabled" },
-                    ],
-                  },
-                  { type: "string", name: "emoji", label: "Emoji" },
-                  { type: "string", name: "bio", label: "Bio" },
-                  {
-                    type: "object",
-                    name: "links",
-                    label: "Links",
-                    list: true,
-                    fields: [
-                      { type: "string", name: "text", label: "Text" },
-                      { type: "string", name: "url", label: "URL" },
-                    ],
-                  },
-                ],
-              },
             ],
           },
         ],
