@@ -5,12 +5,10 @@ theme: 'gohugo-theme-ananke'
 
 params:
   hero:
-    background_image: ""
+    background_image: "/img/hero-image.png"
   article:
     readingTime: true
     linkToMarkup: false
-hero_background_image: ""
-footer_copyright: ""
 menu:
   main:
     - identifier: home
