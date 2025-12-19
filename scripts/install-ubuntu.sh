@@ -67,6 +67,16 @@ chown -R hugo:hugo "$SITE_DIR"
 if [ -f "$SITE_DIR/package.json" ]; then
   echo "==> Installing npm dependencies"
   cd "$SITE_DIR"
+
+  # Ensure hugo's home and npm dirs exist and are writable to avoid EACCES errors
+  echo "==> Ensuring /home/hugo and npm cache/log dirs exist and are owned by hugo"
+  mkdir -p /home/hugo /home/hugo/.npm/_logs /var/cache/hugo/npm-cache /var/tmp/hugo
+  chown -R hugo:hugo /home/hugo /var/cache/hugo /var/tmp/hugo
+  chmod 700 /home/hugo || true
+
+  # Remove any partial node_modules leftovers to avoid ENOTEMPTY errors during install
+  sudo -u hugo bash -lc 'if [ -d "node_modules" ]; then echo "==> Removing existing node_modules"; rm -rf node_modules; fi'
+
   echo "==> Using npm cache: /var/cache/hugo/npm-cache and tmp: /var/tmp/hugo"
   # Run npm as the hugo user with safe cache and tmp dirs to avoid permission issues
   sudo -u hugo env NPM_CONFIG_CACHE=/var/cache/hugo/npm-cache TMPDIR=/var/tmp/hugo HOME=/home/hugo npm ci --no-audit --no-fund || \
