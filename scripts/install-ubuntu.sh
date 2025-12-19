@@ -85,7 +85,16 @@ if [ -f "$SITE_DIR/package.json" ]; then
 fi
 
 # Create systemd service for hugo server
-echo "==> Installing systemd service: /etc/systemd/system/hugo.service"
+# Detect hugo binary path (snap, /usr/bin, or in PATH)
+HUGO_BIN="$(command -v hugo || true)"
+if [ -z "$HUGO_BIN" ] && [ -x /snap/bin/hugo ]; then
+  HUGO_BIN=/snap/bin/hugo
+fi
+if [ -z "$HUGO_BIN" ]; then
+  HUGO_BIN=/usr/bin/hugo
+fi
+
+echo "==> Installing systemd service: /etc/systemd/system/hugo.service (ExecStart=$HUGO_BIN)"
 cat >/etc/systemd/system/hugo.service <<EOF
 [Unit]
 Description=Hugo Server (development)
@@ -96,7 +105,7 @@ Type=simple
 User=hugo
 Group=hugo
 WorkingDirectory=${SITE_DIR}
-ExecStart=/usr/bin/hugo server --bind 0.0.0.0 --port 1313 --disableFastRender --noHTTPCache
+ExecStart=${HUGO_BIN} server --bind 0.0.0.0 --port 1313 --disableFastRender --noHTTPCache
 Restart=always
 RestartSec=5
 
@@ -106,6 +115,13 @@ EOF
 
 systemctl daemon-reload
 systemctl enable --now hugo.service
+systemctl restart hugo.service || true
+
+# Open port 1313 in UFW if available and active
+if command -v ufw >/dev/null 2>&1 && ufw status | grep -q "Status: active"; then
+  echo "==> Allowing port 1313/tcp through UFW"
+  ufw allow 1313/tcp || true
+fi
 
 # Optional: install nginx to serve built site (public/) or reverse-proxy to Hugo
 read -r -p "Would you like to install and configure nginx? [y/N] " install_nginx
