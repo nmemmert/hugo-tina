@@ -4,19 +4,6 @@ title: 'necloud'
 theme: 'gohugo-theme-ananke'
 
 params:
-  sidebar:
-    avatar:
-      src: img/avatar.png
-      enabled: true
-    emoji: "\U0001F365"
-    bio: >-
-      Welcome to my personal hub. Here you can find my photos, notes, and
-      updates.
-    links:
-      - text: GitHub
-        url: 'https://github.com/nmemmert'
-      - text: Twitter
-        url: 'https://twitter.com/username'
   article:
     readingTime: true
     linkToMarkup: false
