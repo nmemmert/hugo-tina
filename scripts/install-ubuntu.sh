@@ -4,18 +4,31 @@ set -euo pipefail
 # Usage: sudo ./install-ubuntu.sh <repo-url> <branch> <site-dir>
 # Example: sudo ./install-ubuntu.sh https://github.com/nmemmert/hugo-tina.git new /var/www/hugo
 
-REPO_URL=${1:-"https://github.com/nmemmert/hugo-tina.git"}
-BRANCH=${2:-"new"}
-SITE_DIR=${3:-"/var/www/hugo"}
+# Flexible argument parsing:
+# Supports either: <repo-url> <branch> <site-dir>
+# or the convenience form: <branch> <site-dir> (uses default repo)
+DEFAULT_REPO="https://github.com/nmemmert/hugo-tina.git"
+if [[ "${1:-}" =~ ^https?:// ]]; then
+  REPO_URL=$1
+  BRANCH=${2:-"new"}
+  SITE_DIR=${3:-"/var/www/hugo"}
+else
+  # treat first arg as branch (or absent)
+  REPO_URL="$DEFAULT_REPO"
+  BRANCH=${1:-"new"}
+  SITE_DIR=${2:-"/var/www/hugo"}
+fi
 
 # Debug: show parsed inputs
 echo "Installer inputs: REPO_URL=$REPO_URL  BRANCH=$BRANCH  SITE_DIR=$SITE_DIR"
 
-# Basic validation to catch common mis-invocations (e.g., passing branch and path but missing repo URL)
-if [[ ! "$REPO_URL" =~ ^https?:// ]] || [[ "$BRANCH" =~ ^/ ]]; then
+# Basic validation to catch mis-invocations
+if [[ ! "$REPO_URL" =~ ^https?:// ]]; then
   cat <<USAGE
-Error: Argument parsing looks wrong.
-Usage: sudo ./install-ubuntu.sh <repo-url> <branch> <site-dir>
+Error: REPO_URL does not look like a URL: $REPO_URL
+Usage:
+  sudo ./install-ubuntu.sh <repo-url> <branch> <site-dir>
+  or (convenience): sudo ./install-ubuntu.sh <branch> <site-dir>  # uses default repo $DEFAULT_REPO
 Example: sudo ./install-ubuntu.sh https://github.com/nmemmert/hugo-tina.git new /var/www/hugo
 Notes:
  - If you run with 'sudo' without './' your current dir may not be in PATH; prefer 'sudo ./install-ubuntu.sh ...' or 'sudo bash install-ubuntu.sh ...'
