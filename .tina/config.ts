@@ -127,7 +127,7 @@ export default {
   media: {
     tina: {
       mediaRoot: "img",
-      publicFolder: "static",
+      publicFolder: "http://127.0.0.1:1313",
     },
   },
 };
