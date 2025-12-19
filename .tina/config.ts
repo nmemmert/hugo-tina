@@ -69,7 +69,7 @@ export default {
       {
         name: "siteConfig",
         label: "Site Config",
-        path: ".",
+        path: "",
         match: { include: "config.yaml" },
         format: "yaml",
         ui: { allowedActions: { create: false, delete: false } },
