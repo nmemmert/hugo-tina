@@ -107,13 +107,45 @@ EOF
 systemctl daemon-reload
 systemctl enable --now hugo.service
 
-# Optional: install nginx to serve built site (public/)
-read -r -p "Would you like to install and configure nginx to serve the generated site (public/)? [y/N] " install_nginx
+# Optional: install nginx to serve built site (public/) or reverse-proxy to Hugo
+read -r -p "Would you like to install and configure nginx? [y/N] " install_nginx
 install_nginx=${install_nginx:-N}
 if [[ "$install_nginx" =~ ^[Yy]$ ]]; then
   echo "==> Installing nginx"
   apt-get install -y nginx
-  cat >/etc/nginx/sites-available/hugo <<'NGINX'
+
+  # Ask whether to proxy to Hugo's dev server or serve static public/
+  read -r -p "Should nginx proxy to Hugo on port 1313 (reverse-proxy) instead of serving static files? [y/N] " proxy_hugo
+  proxy_hugo=${proxy_hugo:-N}
+
+  if [[ "$proxy_hugo" =~ ^[Yy]$ ]]; then
+    echo "==> Configuring nginx as a reverse proxy to http://127.0.0.1:1313"
+    cat >/etc/nginx/sites-available/hugo <<'NGINX'
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://127.0.0.1:1313;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /admin/ {
+        proxy_pass http://127.0.0.1:1313/admin/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+NGINX
+    echo "Nginx configured to proxy / and /admin to Hugo on port 1313"
+  else
+    echo "==> Configuring nginx to serve static files from ${SITE_DIR}/public"
+    cat >/etc/nginx/sites-available/hugo <<'NGINX'
 server {
     listen 80;
     server_name _;
@@ -130,9 +162,11 @@ server {
     }
 }
 NGINX
+    echo "Nginx configured to serve ${SITE_DIR}/public"
+  fi
+
   ln -sf /etc/nginx/sites-available/hugo /etc/nginx/sites-enabled/hugo
   nginx -t && systemctl restart nginx
-  echo "Nginx configured to serve ${SITE_DIR}/public"
 fi
 
 cat <<INFO
