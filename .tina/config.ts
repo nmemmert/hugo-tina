@@ -78,6 +78,7 @@ export default {
           { type: "string", name: "baseURL", label: "Base URL" },
           { type: "string", name: "description", label: "Site Description" },
           { type: "string", name: "theme", label: "Theme" },
+          { type: "string", name: "test", label: "Test" },
           {
             type: "object",
             name: "params",
