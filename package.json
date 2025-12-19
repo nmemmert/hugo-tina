@@ -4,10 +4,14 @@
   "scripts": {
     "dev": "npx tinacms dev --port 4001 --command \"hugo server --bind 0.0.0.0 --port 1313\"",
     "build": "npx tinacms build",
-    "start": "hugo server"
+    "start": "hugo server",
+    "resize:once": "node scripts/resize-uploads.js --once",
+    "resize:watch": "node scripts/resize-uploads.js"
   },
   "dependencies": {
     "@tinacms/cli": "^2.0.4",
+    "chokidar": "^5.0.0",
+    "sharp": "^0.34.5",
     "tinacms": "^3.1.1"
   }
 }
