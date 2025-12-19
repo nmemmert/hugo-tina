@@ -95,6 +95,18 @@ export default {
                   },
                 ],
               },
+              {
+                type: "object",
+                name: "footer",
+                label: "Footer",
+                fields: [
+                  {
+                    type: "string",
+                    name: "copyright",
+                    label: "Copyright Text",
+                  },
+                ],
+              },
             ],
           },
         ],
