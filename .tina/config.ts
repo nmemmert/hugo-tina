@@ -66,52 +66,6 @@ export default {
           { type: "rich-text", name: "body", label: "Body", isBody: true },
         ],
       },
-      {
-        name: "siteConfig",
-        label: "Site Config",
-        path: ".",
-        match: { include: "config.yaml" },
-        format: "yaml",
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          { type: "string", name: "title", label: "Site Title" },
-          { type: "string", name: "baseURL", label: "Base URL" },
-          { type: "string", name: "description", label: "Site Description" },
-          { type: "string", name: "theme", label: "Theme" },
-          { type: "string", name: "test", label: "Test" },
-          {
-            type: "object",
-            name: "params",
-            label: "Params",
-            fields: [
-              {
-                type: "object",
-                name: "hero",
-                label: "Hero",
-                fields: [
-                  {
-                    type: "image",
-                    name: "background_image",
-                    label: "Background Image",
-                  },
-                ],
-              },
-              {
-                type: "object",
-                name: "footer",
-                label: "Footer",
-                fields: [
-                  {
-                    type: "string",
-                    name: "copyright",
-                    label: "Copyright Text",
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
     ],
   },
   media: {
