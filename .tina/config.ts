@@ -68,6 +68,64 @@ export default {
       },
     ],
   },
+      {
+        name: "siteConfig",
+        label: "Site Config",
+        path: ".",
+        match: { include: "config.yaml" },
+        format: "yaml",
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          { type: "string", name: "title", label: "Site Title" },
+          { type: "string", name: "baseURL", label: "Base URL" },
+          { type: "string", name: "theme", label: "Theme" },
+          {
+            type: "object",
+            name: "params",
+            label: "Params",
+            fields: [
+              {
+                type: "object",
+                name: "hero",
+                label: "Hero",
+                fields: [
+                  { type: "image", name: "background_image", label: "Background Image" },
+                ],
+              },
+              {
+                type: "object",
+                name: "article",
+                label: "Article",
+                fields: [
+                  { type: "boolean", name: "readingTime", label: "Show Reading Time" },
+                  { type: "boolean", name: "linkToMarkup", label: "Link To Markup" },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "menu",
+            label: "Menu",
+            fields: [
+              {
+                type: "object",
+                name: "main",
+                label: "Main Menu",
+                list: true,
+                fields: [
+                  { type: "string", name: "identifier", label: "Identifier" },
+                  { type: "string", name: "name", label: "Name" },
+                  { type: "string", name: "url", label: "URL" },
+                  { type: "number", name: "weight", label: "Weight" },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   media: {
     tina: {
       mediaRoot: "static/img",
