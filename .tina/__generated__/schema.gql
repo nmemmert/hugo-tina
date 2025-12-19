@@ -54,21 +54,30 @@ type Query {
   collections: [Collection!]!
   node(id: String): Node!
   document(collection: String, relativePath: String): DocumentNode!
-  about(relativePath: String): About!
-  aboutConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: AboutFilter): AboutConnection!
+  home(relativePath: String): Home!
+  homeConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomeFilter): HomeConnection!
+  posts(relativePath: String): Posts!
+  postsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PostsFilter): PostsConnection!
   notes(relativePath: String): Notes!
   notesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: NotesFilter): NotesConnection!
   photos(relativePath: String): Photos!
   photosConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PhotosFilter): PhotosConnection!
-  posts(relativePath: String): Posts!
-  postsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PostsFilter): PostsConnection!
+  about(relativePath: String): About!
+  aboutConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: AboutFilter): AboutConnection!
+  pages(relativePath: String): Pages!
+  pagesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PagesFilter): PagesConnection!
+  siteConfig(relativePath: String): SiteConfig!
+  siteConfigConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: SiteConfigFilter): SiteConfigConnection!
 }
 
 input DocumentFilter {
-  about: AboutFilter
+  home: HomeFilter
+  posts: PostsFilter
   notes: NotesFilter
   photos: PhotosFilter
-  posts: PostsFilter
+  about: AboutFilter
+  pages: PagesFilter
+  siteConfig: SiteConfigFilter
 }
 
 type DocumentConnectionEdges {
@@ -94,9 +103,9 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = About | Notes | Photos | Posts | Folder
+union DocumentNode = Home | Posts | Notes | Photos | About | Pages | SiteConfig | Folder
 
-type About implements Node & Document {
+type Home implements Node & Document {
   title: String!
   body: JSON
   id: ID!
@@ -117,20 +126,54 @@ input RichTextFilter {
   exists: Boolean
 }
 
-input AboutFilter {
+input HomeFilter {
   title: StringFilter
   body: RichTextFilter
 }
 
-type AboutConnectionEdges {
+type HomeConnectionEdges {
   cursor: String!
-  node: About
+  node: Home
 }
 
-type AboutConnection implements Connection {
+type HomeConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [AboutConnectionEdges]
+  edges: [HomeConnectionEdges]
+}
+
+type Posts implements Node & Document {
+  title: String!
+  date: String
+  body: JSON
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input DatetimeFilter {
+  after: String
+  before: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input PostsFilter {
+  title: StringFilter
+  date: DatetimeFilter
+  body: RichTextFilter
+}
+
+type PostsConnectionEdges {
+  cursor: String!
+  node: Posts
+}
+
+type PostsConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [PostsConnectionEdges]
 }
 
 type Notes implements Node & Document {
@@ -190,38 +233,151 @@ type PhotosConnection implements Connection {
   edges: [PhotosConnectionEdges]
 }
 
-type Posts implements Node & Document {
+type About implements Node & Document {
   title: String!
-  date: String
   body: JSON
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
 }
 
-input DatetimeFilter {
-  after: String
-  before: String
-  eq: String
-  exists: Boolean
-  in: [String]
-}
-
-input PostsFilter {
+input AboutFilter {
   title: StringFilter
-  date: DatetimeFilter
   body: RichTextFilter
 }
 
-type PostsConnectionEdges {
+type AboutConnectionEdges {
   cursor: String!
-  node: Posts
+  node: About
 }
 
-type PostsConnection implements Connection {
+type AboutConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [PostsConnectionEdges]
+  edges: [AboutConnectionEdges]
+}
+
+type Pages implements Node & Document {
+  title: String!
+  menu: String
+  draft: Boolean
+  body: JSON
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input BooleanFilter {
+  eq: Boolean
+  exists: Boolean
+}
+
+input PagesFilter {
+  title: StringFilter
+  menu: StringFilter
+  draft: BooleanFilter
+  body: RichTextFilter
+}
+
+type PagesConnectionEdges {
+  cursor: String!
+  node: Pages
+}
+
+type PagesConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [PagesConnectionEdges]
+}
+
+type SiteConfigParamsHero {
+  background_image: String
+}
+
+type SiteConfigParamsArticle {
+  readingTime: Boolean
+  linkToMarkup: Boolean
+}
+
+type SiteConfigParams {
+  hero: SiteConfigParamsHero
+  article: SiteConfigParamsArticle
+}
+
+type SiteConfigMenuMain {
+  identifier: String
+  name: String
+  url: String
+  weight: Float
+}
+
+type SiteConfigMenu {
+  main: [SiteConfigMenuMain]
+}
+
+type SiteConfig implements Node & Document {
+  title: String
+  baseURL: String
+  theme: String
+  params: SiteConfigParams
+  menu: SiteConfigMenu
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input SiteConfigParamsHeroFilter {
+  background_image: ImageFilter
+}
+
+input SiteConfigParamsArticleFilter {
+  readingTime: BooleanFilter
+  linkToMarkup: BooleanFilter
+}
+
+input SiteConfigParamsFilter {
+  hero: SiteConfigParamsHeroFilter
+  article: SiteConfigParamsArticleFilter
+}
+
+input NumberFilter {
+  lt: Float
+  lte: Float
+  gte: Float
+  gt: Float
+  eq: Float
+  exists: Boolean
+  in: [Float]
+}
+
+input SiteConfigMenuMainFilter {
+  identifier: StringFilter
+  name: StringFilter
+  url: StringFilter
+  weight: NumberFilter
+}
+
+input SiteConfigMenuFilter {
+  main: SiteConfigMenuMainFilter
+}
+
+input SiteConfigFilter {
+  title: StringFilter
+  baseURL: StringFilter
+  theme: StringFilter
+  params: SiteConfigParamsFilter
+  menu: SiteConfigMenuFilter
+}
+
+type SiteConfigConnectionEdges {
+  cursor: String!
+  node: SiteConfig
+}
+
+type SiteConfigConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [SiteConfigConnectionEdges]
 }
 
 type Mutation {
@@ -230,33 +386,51 @@ type Mutation {
   deleteDocument(collection: String, relativePath: String!): DocumentNode!
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   createFolder(collection: String, relativePath: String!): DocumentNode!
-  updateAbout(relativePath: String!, params: AboutMutation!): About!
-  createAbout(relativePath: String!, params: AboutMutation!): About!
+  updateHome(relativePath: String!, params: HomeMutation!): Home!
+  createHome(relativePath: String!, params: HomeMutation!): Home!
+  updatePosts(relativePath: String!, params: PostsMutation!): Posts!
+  createPosts(relativePath: String!, params: PostsMutation!): Posts!
   updateNotes(relativePath: String!, params: NotesMutation!): Notes!
   createNotes(relativePath: String!, params: NotesMutation!): Notes!
   updatePhotos(relativePath: String!, params: PhotosMutation!): Photos!
   createPhotos(relativePath: String!, params: PhotosMutation!): Photos!
-  updatePosts(relativePath: String!, params: PostsMutation!): Posts!
-  createPosts(relativePath: String!, params: PostsMutation!): Posts!
+  updateAbout(relativePath: String!, params: AboutMutation!): About!
+  createAbout(relativePath: String!, params: AboutMutation!): About!
+  updatePages(relativePath: String!, params: PagesMutation!): Pages!
+  createPages(relativePath: String!, params: PagesMutation!): Pages!
+  updateSiteConfig(relativePath: String!, params: SiteConfigMutation!): SiteConfig!
+  createSiteConfig(relativePath: String!, params: SiteConfigMutation!): SiteConfig!
 }
 
 input DocumentUpdateMutation {
-  about: AboutMutation
+  home: HomeMutation
+  posts: PostsMutation
   notes: NotesMutation
   photos: PhotosMutation
-  posts: PostsMutation
+  about: AboutMutation
+  pages: PagesMutation
+  siteConfig: SiteConfigMutation
   relativePath: String
 }
 
 input DocumentMutation {
-  about: AboutMutation
+  home: HomeMutation
+  posts: PostsMutation
   notes: NotesMutation
   photos: PhotosMutation
-  posts: PostsMutation
+  about: AboutMutation
+  pages: PagesMutation
+  siteConfig: SiteConfigMutation
 }
 
-input AboutMutation {
+input HomeMutation {
   title: String
+  body: JSON
+}
+
+input PostsMutation {
+  title: String
+  date: String
   body: JSON
 }
 
@@ -271,10 +445,49 @@ input PhotosMutation {
   body: JSON
 }
 
-input PostsMutation {
+input AboutMutation {
   title: String
-  date: String
   body: JSON
+}
+
+input PagesMutation {
+  title: String
+  menu: String
+  draft: Boolean
+  body: JSON
+}
+
+input SiteConfigParamsHeroMutation {
+  background_image: String
+}
+
+input SiteConfigParamsArticleMutation {
+  readingTime: Boolean
+  linkToMarkup: Boolean
+}
+
+input SiteConfigParamsMutation {
+  hero: SiteConfigParamsHeroMutation
+  article: SiteConfigParamsArticleMutation
+}
+
+input SiteConfigMenuMainMutation {
+  identifier: String
+  name: String
+  url: String
+  weight: Float
+}
+
+input SiteConfigMenuMutation {
+  main: [SiteConfigMenuMainMutation]
+}
+
+input SiteConfigMutation {
+  title: String
+  baseURL: String
+  theme: String
+  params: SiteConfigParamsMutation
+  menu: SiteConfigMenuMutation
 }
 
 schema {

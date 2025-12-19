@@ -1,6 +1,13 @@
-fragment AboutParts on About {
+fragment HomeParts on Home {
   __typename
   title
+  body
+}
+
+fragment PostsParts on Posts {
+  __typename
+  title
+  date
   body
 }
 
@@ -17,9 +24,45 @@ fragment PhotosParts on Photos {
   body
 }
 
-fragment PostsParts on Posts {
+fragment AboutParts on About {
   __typename
   title
-  date
   body
+}
+
+fragment PagesParts on Pages {
+  __typename
+  title
+  menu
+  draft
+  body
+}
+
+fragment SiteConfigParts on SiteConfig {
+  __typename
+  title
+  baseURL
+  theme
+  params {
+    __typename
+    hero {
+      __typename
+      background_image
+    }
+    article {
+      __typename
+      readingTime
+      linkToMarkup
+    }
+  }
+  menu {
+    __typename
+    main {
+      __typename
+      identifier
+      name
+      url
+      weight
+    }
+  }
 }

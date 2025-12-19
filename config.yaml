@@ -1,16 +1,15 @@
+languageCode: en-us
+hero_background_image: ''
+footer_copyright: ''
+title: necloud
 baseURL: 'https://necloud.us/'
-languageCode: 'en-us'
-title: 'necloud'
-theme: 'gohugo-theme-ananke'
-
+theme: gohugo-theme-ananke
 params:
   hero:
-    background_image: ""
+    background_image: /static/img/hero image.png
   article:
     readingTime: true
     linkToMarkup: false
-hero_background_image: ""
-footer_copyright: ""
 menu:
   main:
     - identifier: home
