@@ -29,24 +29,70 @@
       </div>
     </header>
   {{ else }}
-    {{/* Fallback to original background-image approach for static images or remote URLs */}}
+    {{/* Fallback to handling static images (e.g., /img/foo.png) */}}
     {{ $featured_image_class := site.Params.featured_image_class | compare.Default "cover bg-center" }}
-    <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}'); min-height:50vh;">
-      {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
-      <div class="{{ $cover_dimming_class }}">
-        {{ partials.Include "site-navigation.html" .}}
-        <div class="tc-l pv4 pv6-l ph3 ph4-ns">
-          <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
-            {{ .Title | compare.Default .Site.Title }}
-          </h1>
-          {{ with .Params.description }}
-            <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
-              {{ . }}
-            </h2>
-          {{ end }}
+
+    {{/* Normalize path and build candidate generated filenames in static/img */}}
+    {{ $trimmed := strings.TrimPrefix $featured_image "/" }}
+    {{ $basename := replaceRE "^.*/" "" $trimmed }}
+    {{ $baseNoExt := replaceRE "(\.[^./]+)$" "" $basename }}
+    {{ $ext := replaceRE "^.*(\.[^./]+)$" "$1" $basename }}
+    {{ $p1920 := printf "static/img/%s-1920w%s" $baseNoExt $ext }}
+    {{ $p1200 := printf "static/img/%s-1200w%s" $baseNoExt $ext }}
+    {{ $p800 := printf "static/img/%s-800w%s" $baseNoExt $ext }}
+
+    {{ if or (fileExists $p1920) (fileExists $p1200) (fileExists $p800) }}
+      {{/* Build public URLs and srcset */}}
+      {{ $u1920 := printf "/img/%s-1920w%s" $baseNoExt $ext }}
+      {{ $u1200 := printf "/img/%s-1200w%s" $baseNoExt $ext }}
+      {{ $u800 := printf "/img/%s-800w%s" $baseNoExt $ext }}
+      {{ $srcs := slice }}
+      {{ if fileExists $p1920 }}
+        {{ $srcs = $srcs | append (printf "%s 1920w" $u1920) }}
+      {{ end }}
+      {{ if fileExists $p1200 }}
+        {{ $srcs = $srcs | append (printf "%s 1200w" $u1200) }}
+      {{ end }}
+      {{ if fileExists $p800 }}
+        {{ $srcs = $srcs | append (printf "%s 800w" $u800) }}
+      {{ end }}
+      {{ $srcset := delimit $srcs ", " }}
+
+      <header class="{{ $featured_image_class }}" style="min-height:50vh; position:relative;">
+        <img src="{{ index (split (index (split $srcset ", ") 0) " ") 0 }}" srcset="{{ $srcset }}" sizes="(min-width:1200px) 1920px, 100vw" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;" />
+        {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
+        <div style="position:relative;z-index:1;" class="{{ $cover_dimming_class }}">
+          {{ partials.Include "site-navigation.html" .}}
+          <div class="tc-l pv4 pv6-l ph3 ph4-ns">
+            <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
+              {{ .Title | compare.Default .Site.Title }}
+            </h1>
+            {{ with .Params.description }}
+              <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
+                {{ . }}
+              </h2>
+            {{ end }}
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    {{ else }}
+      <header class="{{ $featured_image_class }}" style="background-image: url('{{ $featured_image }}'); min-height:50vh;">
+        {{ $cover_dimming_class := site.Params.cover_dimming_class | compare.Default "bg-black-60" }}
+        <div class="{{ $cover_dimming_class }}">
+          {{ partials.Include "site-navigation.html" .}}
+          <div class="tc-l pv4 pv6-l ph3 ph4-ns">
+            <h1 class="f2 f-subheadline-l fw2 white-90 mb0 lh-title">
+              {{ .Title | compare.Default .Site.Title }}
+            </h1>
+            {{ with .Params.description }}
+              <h2 class="fw1 f5 f3-l white-80 measure-wide-l center mt3">
+                {{ . }}
+              </h2>
+            {{ end }}
+          </div>
+        </div>
+      </header>
+    {{ end }}
   {{ end }}
 {{ else }}
   <header>
