@@ -231,10 +231,54 @@ TIMER
   fi
 fi
 
+echo "==> Verifying installation"
+# Verify Hugo binary
+if [ -x "${HUGO_BIN}" ]; then
+  echo "Hugo binary: ${HUGO_BIN}"
+  ${HUGO_BIN} version || true
+else
+  echo "Warning: Hugo binary not found at ${HUGO_BIN}"
+fi
+
+# Verify systemd service
+if systemctl is-active --quiet hugo; then
+  echo "hugo.service is active"
+else
+  echo "Warning: hugo.service is not active. Check 'sudo journalctl -u hugo -n 50'"
+fi
+
+# Allow time for hugo to start and then test HTTP endpoints (short timeout)
+sleep 2
+HUGO_OK=false
+if command -v curl >/dev/null 2>&1; then
+  if curl -sS --max-time 5 http://127.0.0.1:1313/ >/dev/null 2>&1; then
+    echo "Hugo responds on http://127.0.0.1:1313"
+    HUGO_OK=true
+  else
+    echo "Warning: Hugo did not respond on 127.0.0.1:1313"
+  fi
+else
+  echo "Note: curl not installed, skipping HTTP checks"
+fi
+
+# Check Decap admin files
+if [ -f "${SITE_DIR}/static/admin/config.yml" ] || [ -f "${SITE_DIR}/static/admin/index.html" ]; then
+  echo "Decap admin files present in ${SITE_DIR}/static/admin"
+  if [ "$HUGO_OK" = true ] && command -v curl >/dev/null 2>&1; then
+    if curl -sS --max-time 5 http://127.0.0.1:1313/admin/ 2>/dev/null | grep -qi "netlify-cms\|netlify cms\|Netlify CMS"; then
+      echo "/admin loads Decap (Netlify) CMS UI"
+    else
+      echo "Note: /admin did not show Decap UI. If using 'local_backend' for testing, add 'local_backend: true' to static/admin/config.yml"
+    fi
+  fi
+else
+  echo "Note: No Decap admin files found in ${SITE_DIR}/static/admin (skipping /admin check)"
+fi
+
 cat <<INFO
 
 ==> Done!
-- Hugo server is running as systemd service 'hugo' and binds to port 1313.
+- Hugo server is running as systemd service 'hugo' and binds to port 1313 (if service active).
 - To view the site locally: http://<server-ip>:1313
 - /admin will be available if the repo contains static/admin files (Decap CMS).
 
