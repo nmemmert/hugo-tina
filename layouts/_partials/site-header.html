@@ -35,8 +35,8 @@
     {{/* Normalize path and build candidate generated filenames in static/img */}}
     {{ $trimmed := strings.TrimPrefix $featured_image "/" }}
     {{ $basename := replaceRE "^.*/" "" $trimmed }}
-    {{ $baseNoExt := replaceRE "(\.[^./]+)$" "" $basename }}
-    {{ $ext := replaceRE "^.*(\.[^./]+)$" "$1" $basename }}
+    {{ $baseNoExt := replaceRE "(\\.[^./]+)$" "" $basename }}
+    {{ $ext := replaceRE "^.*(\\.[^./]+)$" "$1" $basename }}
     {{ $p1920 := printf "static/img/%s-1920w%s" $baseNoExt $ext }}
     {{ $p1200 := printf "static/img/%s-1200w%s" $baseNoExt $ext }}
     {{ $p800 := printf "static/img/%s-800w%s" $baseNoExt $ext }}
