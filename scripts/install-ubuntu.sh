@@ -32,12 +32,21 @@ apt-get install -y nodejs build-essential
 # Create dedicated site user
 if ! id -u hugo >/dev/null 2>&1; then
   echo "==> Creating system user 'hugo'"
-  useradd -r -s /usr/sbin/nologin hugo || true
+  # create with a home dir so npm and other tools have a writable HOME
+  useradd -r -s /usr/sbin/nologin -m -d /home/hugo hugo || true
 fi
+
+# Ensure hugo user has a home and writable npm/cache dirs to avoid permission errors
+echo "==> Ensuring hugo home and cache dirs"
+mkdir -p /home/hugo
+mkdir -p /var/cache/hugo/npm-cache
+mkdir -p /var/tmp/hugo
+chown -R hugo:hugo /home/hugo /var/cache/hugo /var/tmp/hugo
 
 echo "==> Preparing site directory: $SITE_DIR"
 mkdir -p "$SITE_DIR"
 chown ${SUDO_USER:-root}:"${SUDO_USER:-root}" "$SITE_DIR"
+chown -R hugo:hugo "$SITE_DIR"
 
 # Clone or update repo
 if [ -d "$SITE_DIR/.git" ]; then
@@ -58,7 +67,11 @@ chown -R hugo:hugo "$SITE_DIR"
 if [ -f "$SITE_DIR/package.json" ]; then
   echo "==> Installing npm dependencies"
   cd "$SITE_DIR"
-  sudo -u hugo npm ci --no-audit --no-fund || echo "npm ci failed; try 'npm install' as needed"
+  echo "==> Using npm cache: /var/cache/hugo/npm-cache and tmp: /var/tmp/hugo"
+  # Run npm as the hugo user with safe cache and tmp dirs to avoid permission issues
+  sudo -u hugo env NPM_CONFIG_CACHE=/var/cache/hugo/npm-cache TMPDIR=/var/tmp/hugo HOME=/home/hugo npm ci --no-audit --no-fund || \
+    (echo "npm ci failed; falling back to npm install" && sudo -u hugo env NPM_CONFIG_CACHE=/var/cache/hugo/npm-cache TMPDIR=/var/tmp/hugo HOME=/home/hugo npm install --no-audit --no-fund) || \
+    echo "npm install failed; please run 'sudo -u hugo npm install' manually if needed"
 fi
 
 # Create systemd service for hugo server
