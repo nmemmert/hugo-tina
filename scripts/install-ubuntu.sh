@@ -183,6 +183,52 @@ NGINX
 
   ln -sf /etc/nginx/sites-available/hugo /etc/nginx/sites-enabled/hugo
   nginx -t && systemctl restart nginx
+
+  # Open HTTP/HTTPS if UFW is active
+  if command -v ufw >/dev/null 2>&1 && ufw status | grep -q "Status: active"; then
+    echo "==> Allowing HTTP/HTTPS through UFW"
+    ufw allow 80/tcp || true
+    ufw allow 443/tcp || true
+  fi
+
+  # Optionally create a systemd timer to build site into public/
+  read -r -p "Would you like to add a systemd timer to run 'hugo -d public' periodically? [y/N] " add_timer
+  add_timer=${add_timer:-N}
+  if [[ "$add_timer" =~ ^[Yy]$ ]]; then
+    echo "==> Installing hugo-build service and timer"
+    cat >/etc/systemd/system/hugo-build.service <<'SERVICE'
+[Unit]
+Description=Hugo build service
+After=network.target
+
+[Service]
+Type=oneshot
+User=hugo
+Group=hugo
+WorkingDirectory=${SITE_DIR}
+ExecStart=${HUGO_BIN} --minify -d public
+
+[Install]
+WantedBy=multi-user.target
+SERVICE
+
+    cat >/etc/systemd/system/hugo-build.timer <<'TIMER'
+[Unit]
+Description=Run Hugo build periodically
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1h
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+TIMER
+
+    systemctl daemon-reload
+    systemctl enable --now hugo-build.timer || true
+    echo "Hugo build timer installed (runs hourly)."
+  fi
 fi
 
 cat <<INFO
