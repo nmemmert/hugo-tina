@@ -1,0 +1,17 @@
+site_title: "My Hugo Site"
+description: "A Hugo site with Decap CMS."
+social:
+  - platform: "GitHub"
+    url: "https://github.com/"
+
+menu:
+  - name: "Home"
+    url: "/"
+  - name: "Blog"
+    url: "/posts/"
+  - name: "Projects"
+    url: "/projects/"
+  - name: "About"
+    url: "/about/"
+  - name: "Contact"
+    url: "/contact/"
