@@ -1,9 +1,13 @@
 backend:
   name: git-gateway
   branch: main
+editorial_workflow: true
+
 local_backend: true
+
 media_folder: "static/images/uploads"
 public_folder: "/images/uploads"
+
 collections:
   - name: "posts"
     label: "Posts"
@@ -14,6 +18,13 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
+      - label: "Related Project"
+        name: "related_project"
+        widget: "relation"
+        collection: "projects"
+        search_fields: ["title"]
+        value_field: "title"
+        display_fields: ["title"]
 
   - name: "home"
     label: "Home Page"
